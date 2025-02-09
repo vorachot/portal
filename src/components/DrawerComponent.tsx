@@ -34,7 +34,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = () => {
             <ListItemIcon>
               <Description />
             </ListItemIcon>
-            <ListItemText primary="Project" />
+            <ListItemText primary="Projects" />
           </ListItem>
         </List>
         <Box sx={{ flexGrow: 1 }} />

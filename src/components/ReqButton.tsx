@@ -31,9 +31,7 @@ const ReqButton: React.FC<ReqButtonProps> = ({
         },
       }}
     >
-      <Typography variant="body1" sx={{ fontSize: 11, fontWeight: "bold" }}>
-        {text}
-      </Typography>
+      <Typography variant="body1">{text}</Typography>
     </Button>
   );
 };

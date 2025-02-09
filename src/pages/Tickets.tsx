@@ -59,12 +59,19 @@ const Tickets: React.FC = () => {
   }, [tickets]);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", maxWidth: 1500 }}>
       <DrawerComponent drawerOpen={false} />
 
       <Box sx={{ width: "100%", padding: 3 }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-          <Typography variant="h4" fontWeight="bold" sx={{ mb: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 2,
+          }}
+        >
+          <Typography variant="h3" >
             Tickets
           </Typography>
           <ReqButton text="Request" setDialogOpen={setDialogOpen} />

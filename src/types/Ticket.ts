@@ -7,7 +7,7 @@ export enum ResourceType {
 export enum TicketStatus {
   Pending = "Pending",
   Approved = "Approved",
-  Rejected = "Rejected",
+  Running = "Running",
 }
 
 export interface Resource {
