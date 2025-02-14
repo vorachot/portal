@@ -11,7 +11,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { MoreVert } from "@mui/icons-material";
+import { MoreHoriz } from "@mui/icons-material";
 import { Ticket } from "../types/Ticket";
 
 interface TicketsTableProps {
@@ -39,25 +39,21 @@ const TicketsTable: React.FC<TicketsTableProps> = ({ tickets }) => {
     () =>
       tickets.map((t, index) => (
         <TableRow key={t.ticketID || index}>
-          <TableCell >{t.ticketID}</TableCell>
-          <TableCell >{t.projectID}</TableCell>
-          <TableCell >{t.namespaceID}</TableCell>
-          <TableCell >{t.status}</TableCell>
-          <TableCell >
+          <TableCell>{t.ticketID}</TableCell>
+          <TableCell>{t.projectID}</TableCell>
+          <TableCell>{t.namespaceID}</TableCell>
+          <TableCell>{t.status}</TableCell>
+          <TableCell>
             {t.resource.type} ({t.resource.amount})
           </TableCell>
-          <TableCell >
-            {new Date(t.createdAt).toLocaleDateString()}
-          </TableCell>
-          <TableCell >
-            {new Date(t.lastUpdated).toLocaleDateString()}
-          </TableCell>
+          <TableCell>{new Date(t.createdAt).toLocaleDateString()}</TableCell>
+          <TableCell>{new Date(t.lastUpdated).toLocaleDateString()}</TableCell>
           <TableCell sx={{ width: "50px", textAlign: "center" }}>
             <IconButton
               size="small"
               onClick={(e) => handleMenuOpen(e, t.ticketID)}
             >
-              <MoreVert />
+              <MoreHoriz />
             </IconButton>
           </TableCell>
         </TableRow>
@@ -67,17 +63,17 @@ const TicketsTable: React.FC<TicketsTableProps> = ({ tickets }) => {
 
   return (
     <>
-      <TableContainer component={Paper} sx={{ mt: 2, maxWidth: 1500 }}>
+      <TableContainer component={Paper} sx={{ maxWidth: 1500 }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell >ID</TableCell>
-              <TableCell >Project</TableCell>
-              <TableCell >Namespace</TableCell>
-              <TableCell >Status</TableCell>
-              <TableCell >Resources (GB)</TableCell>
-              <TableCell >Created At</TableCell>
-              <TableCell >Last Updated</TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell>Project</TableCell>
+              <TableCell>Namespace</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Resources (GB)</TableCell>
+              <TableCell>Created At</TableCell>
+              <TableCell>Last Updated</TableCell>
               <TableCell sx={{ width: "50px" }}></TableCell>
             </TableRow>
           </TableHead>
