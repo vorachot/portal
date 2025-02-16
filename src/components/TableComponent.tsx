@@ -40,11 +40,13 @@ const TicketsTable: React.FC<TicketsTableProps> = ({ tickets }) => {
       tickets.map((t, index) => (
         <TableRow key={t.ticketID || index}>
           <TableCell>{t.ticketID}</TableCell>
-          <TableCell>{t.projectID}</TableCell>
-          <TableCell>{t.namespaceID}</TableCell>
           <TableCell>{t.status}</TableCell>
           <TableCell>
-            {t.resource.type} ({t.resource.amount})
+            {t.resources.map((r, i) => (
+              <div key={i}>
+                {r.type} ({r.amount}), &nbsp;
+              </div>
+            ))}
           </TableCell>
           <TableCell>{new Date(t.createdAt).toLocaleDateString()}</TableCell>
           <TableCell>{new Date(t.lastUpdated).toLocaleDateString()}</TableCell>
@@ -68,8 +70,6 @@ const TicketsTable: React.FC<TicketsTableProps> = ({ tickets }) => {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell>Project</TableCell>
-              <TableCell>Namespace</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Resources (GB)</TableCell>
               <TableCell>Created At</TableCell>

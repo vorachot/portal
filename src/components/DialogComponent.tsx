@@ -6,17 +6,16 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
-import { Resource } from "../types/Ticket";
+import { Resource, ResourceType } from "../types/Ticket";
 import theme from "../_theme";
 
 interface DialogComponentProps {
   isDialogOpen: boolean;
   setDialogOpen: (isOpen: boolean) => void;
-  reqResource: Resource;
+  reqResource: Resource[];
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRequestTicket: () => void;
 }
@@ -34,28 +33,34 @@ const DialogComponent: React.FC<DialogComponentProps> = ({
         sx={{
           backgroundColor: theme.palette.background.default,
           width: 300,
-          height: 280,
+          // height: 280,
+          py: 2,
         }}
       >
-        <DialogTitle>Select Resource</DialogTitle>
+        <DialogTitle>Select Resources</DialogTitle>
         <DialogContent>
           <TextField
-            select
-            label="Resource Type"
-            name="type"
-            value={reqResource.type}
+            label={ResourceType.CPU}
+            name={ResourceType.CPU}
+            value={reqResource[0].amount}
             onChange={handleInputChange}
             fullWidth
             margin="dense"
-          >
-            <MenuItem value="VM">VM</MenuItem>
-            <MenuItem value="Storage">Storage</MenuItem>
-            <MenuItem value="GPU">GPU</MenuItem>
-          </TextField>
+            type="number"
+          />
           <TextField
-            label="Resource Amount"
-            name="amount"
-            value={reqResource.amount}
+            label={ResourceType.GPU}
+            name={ResourceType.GPU}
+            value={reqResource[1].amount}
+            onChange={handleInputChange}
+            fullWidth
+            margin="dense"
+            type="number"
+          />
+          <TextField
+            label={ResourceType.Memory}
+            name={ResourceType.Memory}
+            value={reqResource[2].amount}
             onChange={handleInputChange}
             fullWidth
             margin="dense"

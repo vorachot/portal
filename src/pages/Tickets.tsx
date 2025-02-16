@@ -6,6 +6,7 @@ import { Resource, ResourceType, Ticket, TicketStatus } from "../types/Ticket";
 import TableComponent from "../components/TableComponent";
 import DrawerComponent from "../components/DrawerComponent";
 import ReqButton from "../components/ReqButton";
+import { getTickets } from "../api/ticket";
 
 const Tickets: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([
@@ -13,21 +14,43 @@ const Tickets: React.FC = () => {
       ticketID: "ticket1000346",
       projectID: "default",
       namespaceID: "ns-1000346-default",
-      resource: { type: ResourceType.GPU, amount: 20 },
+      resources: [
+        { type: ResourceType.CPU, amount: 8 },
+        { type: ResourceType.GPU, amount: 8 },
+        { type: ResourceType.Memory, amount: 24 },
+      ],
       status: TicketStatus.Pending,
       createdAt: "2021-10-01",
       lastUpdated: "2021-10-01",
     },
   ]);
   const [isDialogOpen, setDialogOpen] = useState(false);
-  const [reqResource, setReqResource] = useState<Resource>({
-    type: ResourceType.GPU,
-    amount: 0,
-  });
+  const [reqResource, setReqResource] = useState<Resource[]>([
+    {
+      type: ResourceType.CPU,
+      amount: 0,
+    },
+    {
+      type: ResourceType.GPU,
+      amount: 0,
+    },
+    {
+      type: ResourceType.Memory,
+      amount: 0,
+    },
+  ]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setReqResource({ ...reqResource, [name]: value });
+    const index = reqResource.findIndex((res) => res.type === name);
+    if (index !== -1) {
+      const updatedResources = [...reqResource];
+      updatedResources[index] = {
+        ...updatedResources[index],
+        amount: Number(value),
+      };
+      setReqResource(updatedResources);
+    }
   };
 
   const handleRequestTicket = async () => {
@@ -43,8 +66,8 @@ const Tickets: React.FC = () => {
           ticketID: "new-ticket-id",
           projectID: "default",
           namespaceID: "ns-1000346-default",
-          resource: reqResource,
-          status: TicketStatus.Approved,
+          resources: reqResource,
+          status: TicketStatus.Available,
           createdAt: "2021-10-01",
           lastUpdated: "2021-10-01",
         },
@@ -57,6 +80,14 @@ const Tickets: React.FC = () => {
   useEffect(() => {
     console.log("Refresh");
   }, [tickets]);
+
+  useEffect(() => {
+    const userID = "38af98a3-bd49-4c82-b02c-fdbb91d695da";
+    const namespaceID = "0aec2352-732a-4c3a-8a50-5d4fe16ebc1a";
+    getTickets(userID, namespaceID).then((response) => {
+      console.log(response);
+    });
+  }, []);
 
   return (
     <Box sx={{ display: "flex", maxWidth: 1500 }}>
@@ -71,9 +102,7 @@ const Tickets: React.FC = () => {
             mb: 2,
           }}
         >
-          <Typography variant="h3" >
-            Tickets
-          </Typography>
+          <Typography variant="h3">Tickets</Typography>
           <ReqButton text="Request" setDialogOpen={setDialogOpen} />
         </Box>
 

@@ -1,13 +1,14 @@
 export enum ResourceType {
-  VM = "VM",
-  Storage = "Storage",
+  CPU = "CPU",
   GPU = "GPU",
+  Memory = "Memory",
 }
 
 export enum TicketStatus {
   Pending = "Pending",
-  Approved = "Approved",
+  Available = "Available",
   Running = "Running",
+  Completed = "Completed",
 }
 
 export interface Resource {
@@ -19,7 +20,7 @@ export interface Ticket {
   ticketID: string;
   projectID: string;
   namespaceID: string;
-  resource: Resource;
+  resources: Resource[];
   status: TicketStatus;
   createdAt: string;
   lastUpdated: string;
